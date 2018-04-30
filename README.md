@@ -53,6 +53,43 @@ Lets test if it works:
     - Build caching: `On` 
 - Once the tag build rule is added, we can click "Save and Build" to start making master. Make sure that the code is pushed to GitHub before using "Save and Build".
 
+Lets test if it works:  
+Push some changes to GitHub repository on master and the new build should start on Docker Cloud.    
+Push a tag to the same GitHub repository and the new build of tag should start.   
+
+++++++++  
+
+Add GitLab as the second source:
+`git remote add gitlab git@gitlab.com:sugalvojau/demo-php-caddy.git`
+`git push gitlab master && git push gitlab --tags`  
+
+Sign in to GitLab (https://gitlab.com), should see a "Registry" tab in the project.  
+
+Log in to GitLab's registry and push the latest image in master:  
+`docker login registry.gitlab.com -u sugalvojau -p my_password_or_access_token`  
+
+Build the image and tag it for GitLab's Registry:
+`docker build -t registry.gitlab.com/sugalvojau/demo-php-caddy .`
+
+It's also useful to tag an image for a registry from an existing image:
+```
+docker tag \
+pauliusmacernis/demo-php-caddy:1.0.0 \ 
+registry.gitlab.com/sugalvojau/demo-php-caddy:1.0.0
+```
+
+You can also pull down the 1.1.0 image and tag it for GitLab:
+`docker pull pauliusmacernis/demo-php-caddy:1.1.0`
+```
+docker tag \
+pauliusmacernis/demo-php-caddy:1.1.0 \
+registry.gitlab.com/sugalvojau/demo-php-caddy:1.1.0
+```  
+
+Push all to Gitlab:
+`docker push registry.gitlab.com/sugalvojau/demo-php-caddy`
+
+When we push the image changes to GitLab, an automatic build is triggered, and we can see the build jobs in the "pipelines" section of our project.
 
 
 
