@@ -89,7 +89,10 @@ registry.gitlab.com/sugalvojau/demo-php-caddy:1.1.0
 Push all to Gitlab:
 `docker push registry.gitlab.com/sugalvojau/demo-php-caddy`
 
-When we push the image changes to GitLab, an automatic build is triggered, and we can see the build jobs in the "pipelines" section of our project.
+When we push the image changes to GitLab  
+`git push gitlab master && git push gitlab --tags`  
+, an automatic build is triggered,  
+and we can see the build jobs in the "pipelines" section of our project.  
 
 
 
